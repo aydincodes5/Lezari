@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --color-primary-50: #fdf8f6;
+  --color-primary-100: #f2e8e5;
+  --color-primary-200: #eaddd7;
+  --color-primary-300: #e0cec7;
+  --color-primary-400: #d2bab0;
+  --color-primary-500: #a37c6b;
+  --color-primary-600: #8c6a5b;
+  --color-primary-700: #75574a;
+  --color-primary-800: #5c4437;
+  --color-primary-900: #3d2b1f;
+}
+
+@layer base {
+  * {
+    border-color: #e7e5e4;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #1c1917;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .border-border {
+    border-color: #e7e5e4;
+  }
+  .text-muted-foreground {
+    color: #78716c;
+  }
+  .bg-muted {
+    background-color: #f5f5f4;
+  }
+  .bg-background {
+    background-color: #ffffff;
+  }
+  .text-foreground {
+    color: #1c1917;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    display: inline-block;
+    background-color: #3d2b1f;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background-color: #5c4437;
+  }
+
+  .btn-secondary {
+    display: inline-block;
+    border: 1px solid #3d2b1f;
+    color: #3d2b1f;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  .btn-secondary:hover {
+    background-color: #fdf8f6;
+  }
+
+  .input-field {
+    width: 100%;
+    border: 1px solid #e7e5e4;
+    background-color: #ffffff;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .input-field:focus {
+    border-color: #3d2b1f;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #fdf8f6; }
+::-webkit-scrollbar-thumb { background: #d2bab0; }
+::-webkit-scrollbar-thumb:hover { background: #a37c6b; }
