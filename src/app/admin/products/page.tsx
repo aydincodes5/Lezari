@@ -4,16 +4,21 @@ import Image from "next/image";
 import { Plus, Edit, Trash2 } from "lucide-react";
 
 export default async function AdminProducts() {
-  const products = await prisma.product.findMany({
-    include: {
-      category: true,
-      images: {
-        orderBy: { order: "asc" },
-        take: 1
-      }
-    },
-    orderBy: { created_at: "desc" }
-  });
+  let products: any[] = [];
+  try {
+    products = await prisma.product.findMany({
+      include: {
+        category: true,
+        images: {
+          orderBy: { order: "asc" },
+          take: 1
+        }
+      },
+      orderBy: { created_at: "desc" }
+    });
+  } catch (e) {
+    console.warn("Prisma products read skipped:", e);
+  }
 
   return (
     <div>
@@ -38,15 +43,15 @@ export default async function AdminProducts() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {products.length > 0 ? products.map(product => (
+              {products.length > 0 ? products.map((product: any) => (
                 <tr key={product.id} className="hover:bg-muted/10 transition-colors group">
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <div className="h-12 w-12 flex-shrink-0 bg-muted relative rounded overflow-hidden mr-4">
-                        {product.images[0] ? (
+                        {product.images && product.images[0] ? (
                           <Image src={product.images[0].url} alt={product.name} fill className="object-cover" />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground">No img</div>
+                          <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground">💎</div>
                         )}
                       </div>
                       <div>

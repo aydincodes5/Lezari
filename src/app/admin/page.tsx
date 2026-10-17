@@ -3,21 +3,28 @@ import Link from "next/link";
 import { Package, ShoppingCart, Users, DollarSign } from "lucide-react";
 
 export default async function AdminDashboard() {
-  const productCount = await prisma.product.count();
-  const orderCount = await prisma.order.count();
-  const userCount = await prisma.user.count({ where: { role: "CUSTOMER" } });
-  
-  // Aggregate total sales from paid orders (assuming "PAID" or "DELIVERED")
-  const paidOrders = await prisma.order.findMany({
-    where: { status: { in: ["PAID", "SHIPPED", "DELIVERED"] } }
-  });
-  const totalRevenue = paidOrders.reduce((sum, order) => sum + order.total, 0);
+  let productCount = 0;
+  let orderCount = 0;
+  let userCount = 0;
+  let totalRevenue = 0;
+  let recentOrders: any[] = [];
 
-  const recentOrders = await prisma.order.findMany({
-    take: 5,
-    orderBy: { created_at: "desc" },
-    include: { user: true }
-  });
+  try {
+    productCount = await prisma.product.count();
+    orderCount = await prisma.order.count();
+    userCount = await prisma.user.count({ where: { role: "CUSTOMER" } });
+    const paidOrders = await prisma.order.findMany({
+      where: { status: { in: ["PAID", "SHIPPED", "DELIVERED"] } }
+    });
+    totalRevenue = paidOrders.reduce((sum: number, order: any) => sum + order.total, 0);
+    recentOrders = await prisma.order.findMany({
+      take: 5,
+      orderBy: { created_at: "desc" },
+      include: { user: true }
+    });
+  } catch (e) {
+    console.warn("Prisma admin dashboard query skipped:", e);
+  }
 
   return (
     <div>
@@ -82,10 +89,10 @@ export default async function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {recentOrders.length > 0 ? recentOrders.map(order => (
+              {recentOrders.length > 0 ? recentOrders.map((order: any) => (
                 <tr key={order.id} className="hover:bg-muted/10 transition-colors">
                   <td className="px-6 py-4 text-sm font-medium">#{order.id.slice(-6).toUpperCase()}</td>
-                  <td className="px-6 py-4 text-sm">{order.user.name || order.user.email}</td>
+                  <td className="px-6 py-4 text-sm">{order.user?.name || order.user?.email || "Guest"}</td>
                   <td className="px-6 py-4 text-sm text-muted-foreground">{new Date(order.created_at).toLocaleDateString()}</td>
                   <td className="px-6 py-4">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${

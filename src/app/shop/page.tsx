@@ -1,114 +1,127 @@
-import prisma from "@/lib/prisma";
-import Image from "next/image";
 import Link from "next/link";
-import { Filter, Search } from "lucide-react";
-import { redirect } from "next/navigation";
+import { Filter, Search, Sparkles } from "lucide-react";
+import ProductCard from "@/components/product/ProductCard";
+import { CATEGORIES, getProductsByCategory } from "@/lib/catalog";
 
 export default async function ShopPage(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const searchParams = await props.searchParams;
-  const categorySlug = typeof searchParams.category === 'string' ? searchParams.category : undefined;
-  const searchQuery = typeof searchParams.q === 'string' ? searchParams.q : undefined;
-  
-  const where: any = { available: true };
-  if (categorySlug) where.category = { slug: categorySlug };
-  if (searchQuery) where.name = { contains: searchQuery };
+  const categorySlug = typeof searchParams.category === "string" ? searchParams.category : undefined;
+  const searchQuery = typeof searchParams.q === "string" ? searchParams.q : undefined;
 
-  const products = await prisma.product.findMany({
-    where,
-    include: {
-      images: { orderBy: { order: 'asc' }, take: 1 },
-      category: true,
-    },
-    orderBy: { created_at: 'desc' }
-  });
-
-  const categories = await prisma.category.findMany({
-    where: { enabled: true },
-    orderBy: { order: 'asc' }
-  });
+  const products = getProductsByCategory(categorySlug, searchQuery);
+  const activeCategory = CATEGORIES.find((c) => c.slug === categorySlug);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-        <div>
-          <h1 className="text-3xl font-serif text-[#1c1917] uppercase tracking-widest">
-            {searchQuery ? `Search Results` : (categorySlug ? `Shop ${categorySlug}` : 'Shop All')}
-          </h1>
-          {searchQuery && (
-            <p className="text-[#78716c] mt-2">Showing results for "{searchQuery}"</p>
-          )}
-        </div>
-
-        {/* Search Bar within Shop Page */}
-        <form action="/shop" method="GET" className="relative w-full md:w-72">
-          <input 
-            type="text" 
-            name="q" 
-            defaultValue={searchQuery}
-            placeholder="Search jewellery..." 
-            className="w-full border border-[#e7e5e4] pl-10 pr-4 py-2.5 text-sm focus:border-[#3d2b1f] outline-none transition-colors"
-          />
-          <Search className="w-4 h-4 text-[#78716c] absolute left-4 top-1/2 -translate-y-1/2" />
-        </form>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-12">
-        {/* Sidebar Filters */}
-        <div className="w-full lg:w-56 flex-shrink-0">
-          <div className="flex items-center space-x-2 mb-6 text-sm font-medium uppercase tracking-widest text-[#3d2b1f] border-b border-[#e7e5e4] pb-4">
-            <Filter className="h-4 w-4" />
-            <span>Categories</span>
+    <div className="bg-[#fffdf6] min-h-screen py-10 sm:py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Page Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-6 border-b border-[#e7e5e4] gap-6">
+          <div>
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#a37c6b] mb-1.5 font-medium">
+              <span>Lezari Collection</span>
+              {activeCategory && <span>/ {activeCategory.name}</span>}
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-serif text-[#1c1917] tracking-wide">
+              {searchQuery
+                ? `Results for "${searchQuery}"`
+                : activeCategory
+                ? activeCategory.name
+                : "All Jewellery"}
+            </h1>
+            <p className="text-xs text-[#78716c] mt-2">
+              Showing {products.length} anti-tarnish, 18K gold plated pieces
+            </p>
           </div>
-          <ul className="space-y-4">
-            <li>
-              <Link href="/shop" className={`text-sm tracking-wide ${!categorySlug && !searchQuery ? 'text-[#3d2b1f] font-medium' : 'text-[#78716c] hover:text-[#3d2b1f]'} transition-colors`}>
-                All Products
-              </Link>
-            </li>
-            {categories.map(cat => (
-              <li key={cat.id}>
-                <Link href={`/shop?category=${cat.slug}`} className={`text-sm tracking-wide ${categorySlug === cat.slug ? 'text-[#3d2b1f] font-medium' : 'text-[#78716c] hover:text-[#3d2b1f]'} transition-colors`}>
-                  {cat.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+
+          {/* Search Bar on Shop Tab */}
+          <form action="/shop" method="GET" className="relative w-full md:w-80">
+            {categorySlug && <input type="hidden" name="category" value={categorySlug} />}
+            <input
+              type="text"
+              name="q"
+              defaultValue={searchQuery}
+              placeholder="Search necklaces, earrings, rings..."
+              className="w-full bg-white border border-[#e7e5e4] pl-10 pr-4 py-2.5 text-xs text-[#1c1917] placeholder:text-[#a8a29e] focus:border-[#3d2b1f] outline-none shadow-2xs"
+            />
+            <Search className="w-4 h-4 text-[#78716c] absolute left-3.5 top-1/2 -translate-y-1/2" />
+          </form>
         </div>
 
-        {/* Product Grid */}
-        <div className="flex-grow">
-          {products.length === 0 ? (
-            <div className="text-center py-20 bg-[#fdf8f6] border border-[#eaddd7]">
-              <p className="text-[#78716c] mb-6">No products found matching your criteria.</p>
-              <Link href="/shop" className="btn-primary inline-block">Clear Filters</Link>
+        <div className="flex flex-col lg:flex-row gap-10">
+          
+          {/* Categories Sidebar */}
+          <div className="w-full lg:w-60 flex-shrink-0">
+            <div className="bg-white p-5 border border-[#e7e5e4] shadow-xs">
+              <div className="flex items-center space-x-2 mb-4 text-xs font-semibold uppercase tracking-widest text-[#3d2b1f] pb-3 border-b border-[#f5f5f4]">
+                <Filter className="h-3.5 w-3.5" />
+                <span>Categories</span>
+              </div>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <Link
+                    href="/shop"
+                    className={`block py-1.5 px-2 rounded-xs transition-colors ${
+                      !categorySlug
+                        ? "bg-[#fdf8f6] text-[#3d2b1f] font-semibold"
+                        : "text-[#78716c] hover:text-[#1c1917]"
+                    }`}
+                  >
+                    All Jewellery
+                  </Link>
+                </li>
+                {CATEGORIES.map((cat) => (
+                  <li key={cat.id}>
+                    <Link
+                      href={`/shop?category=${cat.slug}`}
+                      className={`flex justify-between items-center py-1.5 px-2 rounded-xs transition-colors ${
+                        categorySlug === cat.slug
+                          ? "bg-[#fdf8f6] text-[#3d2b1f] font-semibold"
+                          : "text-[#78716c] hover:text-[#1c1917]"
+                      }`}
+                    >
+                      <span>{cat.name}</span>
+                      <span className="text-[10px] text-[#a8a29e]">({cat.itemCount})</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Anti-Tarnish Assurance in Sidebar */}
+              <div className="mt-8 pt-5 border-t border-[#f5f5f4] text-[11px] text-[#78716c] space-y-2">
+                <div className="flex items-center gap-1.5 font-medium text-[#3d2b1f]">
+                  <Sparkles className="w-3.5 h-3.5" /> All Items Are:
+                </div>
+                <p>• 18K Real Gold PVD Plated</p>
+                <p>• Guaranteed Anti-Tarnish</p>
+                <p>• 100% Waterproof & Sweatproof</p>
+              </div>
             </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 md:gap-x-8">
-              {products.map(product => (
-                <Link href={`/product/${product.slug}`} key={product.id} className="group cursor-pointer flex flex-col">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-[#f5f5f4] mb-4">
-                    {product.images[0] ? (
-                      <Image src={product.images[0].url} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-[#fdf8f6] text-[#d2bab0]">No Image</div>
-                    )}
-                    {product.new_arrival && (
-                      <div className="absolute top-2 left-2 bg-white px-2 py-1 text-[9px] uppercase tracking-widest font-medium">New</div>
-                    )}
-                  </div>
-                  <h3 className="font-medium text-sm mb-1 line-clamp-1 group-hover:text-[#a37c6b] transition-colors">{product.name}</h3>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm font-medium text-[#3d2b1f]">₹{product.price.toFixed(2)}</span>
-                    {product.original_price && (
-                      <span className="text-xs text-[#78716c] line-through">₹{product.original_price.toFixed(2)}</span>
-                    )}
-                  </div>
+          </div>
+
+          {/* Product Grid */}
+          <div className="flex-grow">
+            {products.length === 0 ? (
+              <div className="text-center py-20 bg-white border border-[#e7e5e4] p-8">
+                <p className="text-sm text-[#78716c] mb-4">No jewellery found matching your search.</p>
+                <Link
+                  href="/shop"
+                  className="btn-primary text-xs uppercase tracking-wider py-2.5 px-6 inline-block"
+                >
+                  View All Products
                 </Link>
-              ))}
-            </div>
-          )}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12">
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+          </div>
+
         </div>
       </div>
     </div>

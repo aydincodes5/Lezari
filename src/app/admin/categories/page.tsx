@@ -3,9 +3,14 @@ import { Plus, Edit, Trash2 } from "lucide-react";
 import Image from "next/image";
 
 export default async function AdminCategories() {
-  const categories = await prisma.category.findMany({
-    orderBy: { order: "asc" }
-  });
+  let categories: any[] = [];
+  try {
+    categories = await prisma.category.findMany({
+      orderBy: { order: "asc" }
+    });
+  } catch (e) {
+    console.warn("Prisma category read skipped:", e);
+  }
 
   return (
     <div>
@@ -28,7 +33,7 @@ export default async function AdminCategories() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {categories.length > 0 ? categories.map(cat => (
+            {categories.length > 0 ? categories.map((cat: any) => (
               <tr key={cat.id} className="hover:bg-muted/10 transition-colors">
                 <td className="px-6 py-4">
                   <div className="h-10 w-10 flex-shrink-0 bg-muted relative rounded overflow-hidden">

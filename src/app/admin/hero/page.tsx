@@ -1,12 +1,16 @@
 import prisma from "@/lib/prisma";
-import Link from "next/link";
 import Image from "next/image";
 import { Plus, Edit, Trash2 } from "lucide-react";
 
 export default async function AdminHeroSlider() {
-  const slides = await prisma.heroSlide.findMany({
-    orderBy: { order: "asc" }
-  });
+  let slides: any[] = [];
+  try {
+    slides = await prisma.heroSlide.findMany({
+      orderBy: { order: "asc" }
+    });
+  } catch (e) {
+    console.warn("Prisma hero slides read skipped:", e);
+  }
 
   return (
     <div>
@@ -29,7 +33,7 @@ export default async function AdminHeroSlider() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {slides.length > 0 ? slides.map(slide => (
+            {slides.length > 0 ? slides.map((slide: any) => (
               <tr key={slide.id} className="hover:bg-muted/10 transition-colors">
                 <td className="px-6 py-4">
                   <div className="h-16 w-32 flex-shrink-0 bg-muted relative rounded overflow-hidden">
