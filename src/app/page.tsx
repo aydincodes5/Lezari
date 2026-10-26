@@ -1,3 +1,5 @@
+import { getSettings } from "@/lib/siteSettings";
+import { getReviews } from "@/lib/reviews";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ShieldCheck, Droplets, Sparkles, Truck, Star, Quote } from "lucide-react";
@@ -6,7 +8,7 @@ import HeroSlider from "@/components/home/HeroSlider";
 import ProductCard from "@/components/product/ProductCard";
 import { CATEGORIES, PRODUCTS } from "@/lib/catalog";
 
-export default function Home() {
+export default async function Home() {
   const bestSellers = PRODUCTS.filter((p) => p.best_seller);
   const newArrivals = PRODUCTS.filter((p) => p.new_arrival);
 
@@ -20,32 +22,8 @@ export default function Home() {
     { id: 6, src: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600&auto=format&fit=crop", tag: "@isha_j in Pearl Studs" },
   ];
 
-  const testimonials = [
-    {
-      id: 1,
-      quote: "The anti-tarnish promise is 100% genuine! I wear my Tulip necklace in the shower every single day and it still shines exactly like solid gold.",
-      author: "Pooja Mehta",
-      verified: true,
-      product: "Tulip Salene Necklace",
-      rating: 5,
-    },
-    {
-      id: 2,
-      quote: "Finally jewellery that doesn't irritate my sensitive ears. The Nale Huggies are featherlight and so luxurious. Highly recommended!",
-      author: "Rhea Sharma",
-      verified: true,
-      product: "Nale White Stone Huggies",
-      rating: 5,
-    },
-    {
-      id: 3,
-      quote: "The packaging, the weight, the gold finish — everything feels like high-end designer pieces without breaking the bank.",
-      author: "Sneha Nair",
-      verified: true,
-      product: "Heart Tale Charm Band",
-      rating: 5,
-    },
-  ];
+  const settings = getSettings();
+  const testimonials = getReviews();
 
   return (
     <div className="flex flex-col min-h-screen bg-[#fffdf6]">
@@ -98,13 +76,13 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="flex flex-col items-center p-2">
               <ShieldCheck className="w-6 h-6 text-[#3d2b1f] mb-2" />
-              <h4 className="text-xs uppercase tracking-wider font-semibold text-[#1c1917]">18K Gold Plated</h4>
-              <p className="text-[11px] text-[#78716c] mt-0.5">Won't fade, rust, or tarnish</p>
+              <h4 className="text-xs uppercase tracking-wider font-semibold text-[#1c1917]">Stainless Steel</h4>
+              <p className="text-[11px] text-[#78716c] mt-0.5">Durable &amp; Long-Lasting</p>
             </div>
             <div className="flex flex-col items-center p-2">
               <Droplets className="w-6 h-6 text-[#3d2b1f] mb-2" />
-              <h4 className="text-xs uppercase tracking-wider font-semibold text-[#1c1917]">100% Waterproof</h4>
-              <p className="text-[11px] text-[#78716c] mt-0.5">Shower, sweat & swim proof</p>
+              <h4 className="text-xs uppercase tracking-wider font-semibold text-[#1c1917]">Water-Resistant</h4>
+              <p className="text-[11px] text-[#78716c] mt-0.5">Shower &amp; Sweat Friendly</p>
             </div>
             <div className="flex flex-col items-center p-2">
               <Sparkles className="w-6 h-6 text-[#3d2b1f] mb-2" />
@@ -203,8 +181,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 7. REVIEWS & TESTIMONIALS (Like Judge.me in the reference) ── */}
-      <section className="py-16 bg-[#fdf8f6] border-y border-[#eaddd7]">
+      {/* ── 7. REVIEWS & TESTIMONIALS (hidden by default, admin can enable) ── */}
+      {settings.reviewsVisible && <section className="py-16 bg-[#fdf8f6] border-y border-[#eaddd7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-1.5 text-[#d4af37] mb-2">
@@ -245,7 +223,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* ── 8. INSTAGRAM SECTION (Requested by User) ── */}
       <section className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">

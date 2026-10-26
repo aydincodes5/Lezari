@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
-import { LayoutDashboard, Package, Image as ImageIcon, ShoppingCart, Users, Settings } from "lucide-react";
+import { LayoutDashboard, Package, Image as ImageIcon, ShoppingCart, Users, Star } from "lucide-react";
 
 export default async function AdminLayout({
   children,
@@ -43,6 +43,10 @@ export default async function AdminLayout({
             <Link href="/admin/customers" className="flex items-center px-4 py-3 text-sm font-medium rounded-md hover:bg-primary-50 text-foreground transition-colors">
               <Users className="h-5 w-5 mr-3 text-primary-600" />
               Customers
+            </Link>
+            <Link href="/admin/reviews" className="flex items-center px-4 py-3 text-sm font-medium rounded-md hover:bg-primary-50 text-foreground transition-colors">
+              <Star className="h-5 w-5 mr-3 text-primary-600" />
+              Reviews
             </Link>
           </nav>
         </div>

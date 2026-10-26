@@ -73,7 +73,7 @@ export default function ProductCard({
             </span>
           )}
           <span className="bg-white/95 text-[#3d2b1f] text-[8px] uppercase tracking-wider px-1.5 py-0.5 border border-[#e7e5e4] font-semibold">
-            Anti-Tarnish
+            Stainless Steel
           </span>
         </div>
 

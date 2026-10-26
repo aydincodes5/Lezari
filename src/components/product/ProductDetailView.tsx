@@ -89,7 +89,7 @@ export default function ProductDetailView({
                 className="object-cover"
               />
               <div className="absolute top-3 left-3 bg-[#3d2b1f] text-white text-[9px] uppercase tracking-widest px-2.5 py-1">
-                100% Anti-Tarnish
+                Stainless Steel
               </div>
             </div>
           </div>
@@ -137,15 +137,15 @@ export default function ProductDetailView({
               {product.description}
             </p>
 
-            {/* Anti-Tarnish Badges */}
+            {/* Material Badges */}
             <div className="grid grid-cols-3 gap-2 py-3 border-y border-[#e7e5e4] text-center text-[10px] uppercase tracking-wider text-[#3d2b1f]">
               <div className="flex flex-col items-center p-2 bg-[#fdf8f6]">
                 <ShieldCheck className="w-4 h-4 mb-1" />
-                <span>18K Gold Plated</span>
+                <span>Gold-Toned</span>
               </div>
               <div className="flex flex-col items-center p-2 bg-[#fdf8f6]">
                 <Droplets className="w-4 h-4 mb-1" />
-                <span>Waterproof</span>
+                <span>Water-Resistant</span>
               </div>
               <div className="flex flex-col items-center p-2 bg-[#fdf8f6]">
                 <Sparkles className="w-4 h-4 mb-1" />
@@ -235,9 +235,9 @@ export default function ProductDetailView({
                 <dt className="text-[#78716c]">Base Metal:</dt>
                 <dd className="font-medium text-[#1c1917]">{product.material || "316L Surgical Stainless Steel"}</dd>
                 <dt className="text-[#78716c]">Plating:</dt>
-                <dd className="font-medium text-[#1c1917]">{product.plating || "18K Gold PVD (Anti-Tarnish)"}</dd>
+                <dd className="font-medium text-[#1c1917]">{product.plating || "18K Gold-Toned Plating"}</dd>
                 <dt className="text-[#78716c]">Water Resistance:</dt>
-                <dd className="font-medium text-[#1c1917]">100% Waterproof & Sweatproof</dd>
+                <dd className="font-medium text-[#1c1917]">Water-Resistant (avoid prolonged submersion)</dd>
                 <dt className="text-[#78716c]">Skin Compatibility:</dt>
                 <dd className="font-medium text-[#1c1917]">Nickel & Lead Free</dd>
               </dl>

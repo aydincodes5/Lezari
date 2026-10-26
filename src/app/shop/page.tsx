@@ -32,7 +32,7 @@ export default async function ShopPage(props: {
                 : "All Jewellery"}
             </h1>
             <p className="text-xs text-[#78716c] mt-2">
-              Showing {products.length} anti-tarnish, 18K gold plated pieces
+              Showing {products.length} stainless steel, gold-toned pieces
             </p>
           </div>
 

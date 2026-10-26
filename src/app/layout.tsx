@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Lezari Jewels | Premium Jewellery",
-  description: "Premium anti-tarnish and stainless-steel jewellery. Elegant, timeless, and minimal.",
+  title: "Lezari Jewels | Modern Stainless Steel Fashion Jewellery",
+  description: "Modern, stylish stainless steel fashion jewellery for everyday elegance. Long-lasting, tarnish-resistant, and accessibly priced.",
 };
 
 export default function RootLayout({

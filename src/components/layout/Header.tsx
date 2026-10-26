@@ -20,11 +20,13 @@ export default function Header() {
     setMounted(true);
   }, []);
 
+  const isAdmin = (session?.user as any)?.role === "ADMIN";
+
   return (
     <>
       {/* Top Announcement Bar */}
       <div className="bg-[#3d2b1f] text-[#fdf8f6] text-[10px] sm:text-[11px] text-center py-2.5 px-4 tracking-[0.25em] uppercase font-medium">
-        Free Shipping on all orders above ₹999 • 100% Waterproof & Anti-Tarnish
+        Free Shipping on all orders above Rs. 1,999 &bull; Stainless Steel Fashion Jewellery
       </div>
 
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e7e5e4] transition-all">
@@ -34,12 +36,12 @@ export default function Header() {
             {/* LEFT: Prominent, Balanced Logo & Brand */}
             <div className="flex-shrink-0 z-50">
               <Link href="/" className="flex items-center gap-3.5 group cursor-pointer py-1">
-                <div className="relative h-14 w-14 sm:h-16 sm:w-16 md:h-18 md:w-18 flex-shrink-0">
+                <div className="relative h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0">
                   <Image
-                    src="/logo.png"
-                    alt="Lezari Jewels Official Logo"
+                    src="/logo-emblem.png"
+                    alt="Lezari Jewels"
                     fill
-                    sizes="(max-width: 640px) 56px, 72px"
+                    sizes="(max-width: 640px) 64px, 80px"
                     className="object-contain transform group-hover:scale-105 transition-transform duration-300"
                     priority
                   />
@@ -76,6 +78,14 @@ export default function Header() {
                 >
                   Account
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    className="text-xs font-medium tracking-[0.2em] text-[#a37c6b] hover:text-[#3d2b1f] transition-colors uppercase py-1 font-semibold"
+                  >
+                    Admin
+                  </Link>
+                )}
               </nav>
 
               <div className="flex items-center space-x-5 pl-4 border-l border-[#e7e5e4]">
@@ -88,7 +98,7 @@ export default function Header() {
                   className="p-2 text-[#1c1917] hover:text-[#e1306c] hover:bg-[#fdf8f6] rounded-full transition-colors flex items-center justify-center group"
                   title="Follow us on Instagram"
                 >
-                  <InstagramIcon className="w-4 h-4 transform group-hover:scale-110 transition-transform" />
+                  <InstagramIcon className="w-5 h-5 transform group-hover:scale-110 transition-transform" />
                 </a>
 
                 {/* Cart Button */}
@@ -189,6 +199,15 @@ export default function Header() {
               >
                 Account
               </Link>
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-xs font-medium tracking-[0.2em] uppercase py-3 border-b border-[#f5f5f4] text-[#a37c6b] hover:text-[#3d2b1f] font-semibold"
+                >
+                  Admin Panel
+                </Link>
+              )}
               <Link
                 href="/contact"
                 onClick={() => setIsMobileMenuOpen(false)}

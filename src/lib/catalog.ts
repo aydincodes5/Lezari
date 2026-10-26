@@ -26,16 +26,28 @@ export interface Category {
   name: string;
   slug: string;
   image: string;
-  itemCount: number;
+  itemCount?: number;
+  enabled?: boolean;
+  order?: number;
 }
 
-export const CATEGORIES: Category[] = [
+export interface HeroSlide {
+  id: string;
+  image: string;
+  title: string;
+  active?: boolean;
+  order?: number;
+}
+
+const defaultCategories: Category[] = [
   {
     id: "cat-necklaces",
     name: "Necklaces",
     slug: "necklaces",
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop",
     itemCount: 8,
+    enabled: true,
+    order: 1,
   },
   {
     id: "cat-earrings",
@@ -43,6 +55,8 @@ export const CATEGORIES: Category[] = [
     slug: "earrings",
     image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=800&auto=format&fit=crop",
     itemCount: 10,
+    enabled: true,
+    order: 2,
   },
   {
     id: "cat-rings",
@@ -50,6 +64,8 @@ export const CATEGORIES: Category[] = [
     slug: "rings",
     image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop",
     itemCount: 6,
+    enabled: true,
+    order: 3,
   },
   {
     id: "cat-bracelets",
@@ -57,6 +73,8 @@ export const CATEGORIES: Category[] = [
     slug: "bracelets",
     image: "https://images.unsplash.com/photo-1611591475878-83804868f060?q=80&w=800&auto=format&fit=crop",
     itemCount: 7,
+    enabled: true,
+    order: 4,
   },
   {
     id: "cat-anklets",
@@ -64,6 +82,8 @@ export const CATEGORIES: Category[] = [
     slug: "anklets",
     image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop",
     itemCount: 4,
+    enabled: true,
+    order: 5,
   },
   {
     id: "cat-combos",
@@ -71,34 +91,42 @@ export const CATEGORIES: Category[] = [
     slug: "combos",
     image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&auto=format&fit=crop",
     itemCount: 5,
+    enabled: true,
+    order: 6,
   },
 ];
 
-export const HERO_SLIDES = [
+const defaultSlides: HeroSlide[] = [
   {
     id: "slide-1",
     image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1920&auto=format&fit=crop",
-    title: "18K Gold Plated Collection",
+    title: "Gold-Toned Stainless Steel",
+    active: true,
+    order: 1,
   },
   {
     id: "slide-2",
     image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1920&auto=format&fit=crop",
-    title: "Waterproof Everyday Elegance",
+    title: "Everyday Elegance",
+    active: true,
+    order: 2,
   },
   {
     id: "slide-3",
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1920&auto=format&fit=crop",
-    title: "Anti-Tarnish Floral Edit",
+    title: "Floral Edit",
+    active: true,
+    order: 3,
   },
 ];
 
-export const PRODUCTS: Product[] = [
+const defaultProducts: Product[] = [
   {
     id: "lez-01",
     name: "Nale White Stone Huggies",
     slug: "nale-white-stone-huggies",
-    description: "Crafted in surgical-grade stainless steel with 18K thick gold PVD plating. Features a radiant solitaire zirconia crystal that catches light from every angle. 100% waterproof, sweatproof, and hypoallergenic. Wear it in the shower, gym, or poolside without tarnishing.",
-    short_description: "18K gold plated hoop earrings with radiant crystal.",
+    description: "Crafted in surgical-grade stainless steel with 18K thick gold-toned finish. Features a radiant solitaire zirconia crystal that catches light from every angle. Water-resistant and hypoallergenic. Suitable for everyday wear.",
+    short_description: "Gold-toned hoop earrings with radiant crystal.",
     price: 285,
     original_price: 599,
     discount: 52,
@@ -115,14 +143,14 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 142,
     material: "316L Stainless Steel",
-    plating: "18K Gold PVD",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-02",
     name: "Sareine Circle Drop Earrings",
     slug: "sareine-circle-drop-earrings",
-    description: "Sleek geometric circles designed for understated luxury. The smooth polished gold finish reflects elegance suitable for everyday desk-to-dinner looks. Completely anti-tarnish and featherlight on your earlobes.",
-    short_description: "Minimalist dual circular drop earrings in 18K gold.",
+    description: "Sleek geometric circles designed for understated luxury. The smooth polished gold finish reflects elegance suitable for everyday desk-to-dinner looks. Featherlight on your earlobes, great for daily wear.",
+    short_description: "Minimalist dual circular drop earrings in gold tone.",
     price: 330,
     original_price: 649,
     discount: 49,
@@ -139,13 +167,13 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 98,
     material: "316L Stainless Steel",
-    plating: "18K Yellow Gold",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-03",
     name: "Eira White Crystal Huggies",
     slug: "eira-white-crystal-huggies",
-    description: "Petite pave-set huggies that hug your ear gently. Encrusted with brilliant micro-zirconia stones that shimmer endlessly. Waterproof, hypoallergenic, and perfect for multi-piercing stacks.",
+    description: "Petite pave-set huggies that hug your ear gently. Encrusted with brilliant micro-zirconia stones that shimmer endlessly. Hypoallergenic and perfect for multi-piercing stacks.",
     short_description: "Dainty micro-pave hoop huggies.",
     price: 299,
     original_price: 599,
@@ -163,13 +191,13 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 76,
     material: "316L Stainless Steel",
-    plating: "18K Gold PVD",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-04",
     name: "Tulip Salene Pendant Necklace",
     slug: "tulip-salene-pendant-necklace",
-    description: "An ode to springtime romance. Features a beautifully sculpted 3D tulip pendant suspended on a delicate yet sturdy cable chain. Hypoallergenic, sweatproof, and anti-tarnish.",
+    description: "An ode to springtime romance. Features a beautifully sculpted 3D tulip pendant suspended on a delicate yet sturdy cable chain. Hypoallergenic and comfortable for everyday wear.",
     short_description: "Sculpted floral tulip pendant necklace.",
     price: 389,
     original_price: 799,
@@ -187,13 +215,13 @@ export const PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 164,
     material: "316L Stainless Steel",
-    plating: "18K Gold Plated",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-05",
     name: "Heart Tale Charm Band",
     slug: "heart-tale-charm-band",
-    description: "A sleek magnetic clasp band adorned with a high-polish golden heart charm. Designed for effortless one-handed wearing. Stays untarnished and brilliant day in and day out.",
+    description: "A sleek magnetic clasp band adorned with a high-polish golden heart charm. Designed for effortless one-handed wearing. Designed to stay bright with regular care.",
     short_description: "Magnetic wrist band with polished heart charm.",
     price: 349,
     original_price: 699,
@@ -211,14 +239,14 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 62,
     material: "Stainless Steel + Magnetic Clasp",
-    plating: "18K Gold",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-06",
     name: "Pink Tulip Anklet Pair",
     slug: "pink-tulip-anklet-pair",
-    description: "Delicate double-chain anklets adorned with hand-painted enamel pink tulip charms and gold beads. Waterproof and beach-proof — wear them in salt water, chlorine, or daily showers without worry.",
-    short_description: "Pair of waterproof enamel tulip anklets.",
+    description: "Delicate double-chain anklets adorned with hand-painted enamel pink tulip charms and gold beads. Water-resistant — suitable for casual daily wear.",
+    short_description: "Pair of enamel tulip anklets.",
     price: 360,
     original_price: 699,
     discount: 48,
@@ -235,13 +263,13 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 88,
     material: "316L Stainless Steel",
-    plating: "18K Gold Plated",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-07",
     name: "Aura Solitaire Dome Ring",
     slug: "aura-solitaire-dome-ring",
-    description: "A bold, modern signet dome ring featuring a flush-set faceted zirconia crystal. The ergonomic interior contour ensures all-day comfort. Tarnish-free and won't turn your finger green.",
+    description: "A bold, modern signet dome ring featuring a flush-set faceted zirconia crystal. The ergonomic interior contour ensures all-day comfort. Designed to minimise skin discolouration with regular care.",
     short_description: "Croissant dome ring with solitaire crystal.",
     price: 299,
     original_price: 599,
@@ -259,13 +287,13 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 110,
     material: "316L Stainless Steel",
-    plating: "18K Gold PVD",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-08",
     name: "Green Laura Clover Necklace",
     slug: "green-laura-clover-necklace",
-    description: "Inspired by timeless good luck charms. Features a double-sided malachite green enamel clover framed in beaded 18K gold. Pairs effortlessly with white shirts and evening silhouettes.",
+    description: "Inspired by timeless good luck charms. Features a double-sided malachite green enamel clover framed in beaded gold tone. Pairs effortlessly with white shirts and evening silhouettes.",
     short_description: "Four-leaf clover pendant in malachite green.",
     price: 399,
     original_price: 799,
@@ -283,7 +311,7 @@ export const PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 195,
     material: "316L Stainless Steel",
-    plating: "18K Gold PVD",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-09",
@@ -306,7 +334,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 54,
     material: "316L Stainless Steel",
-    plating: "18K Gold Plated",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-10",
@@ -329,7 +357,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 73,
     material: "Freshwater Pearl + Stainless Steel",
-    plating: "18K Gold",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-11",
@@ -353,13 +381,13 @@ export const PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 130,
     material: "316L Stainless Steel",
-    plating: "18K Gold PVD",
+    plating: "Gold-Toned",
   },
   {
     id: "lez-12",
     name: "Hena Adjustable Stacking Ring",
     slug: "hena-adjustable-stacking-ring",
-    description: "An open cuff ring featuring dual teardrop zirconia stones on opposite ends. Squeeze or expand gently to fit any finger from size 5 to 9. Never oxidizes or tarnishes.",
+    description: "An open cuff ring featuring dual teardrop zirconia stones on opposite ends. Squeeze or expand gently to fit any finger from size 5 to 9. Crafted to maintain its look with proper care.",
     short_description: "Open cuff stacking ring with teardrop crystals.",
     price: 279,
     original_price: 549,
@@ -376,16 +404,123 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 81,
     material: "316L Stainless Steel",
-    plating: "18K Gold",
+    plating: "Gold-Toned",
   },
 ];
 
+const globalKeyCategories = "__lezari_categories__";
+const globalKeySlides = "__lezari_hero_slides__";
+const globalKeyProducts = "__lezari_products__";
+
+declare global {
+  // eslint-disable-next-line no-var
+  var __lezari_categories__: Category[] | undefined;
+  // eslint-disable-next-line no-var
+  var __lezari_hero_slides__: HeroSlide[] | undefined;
+  // eslint-disable-next-line no-var
+  var __lezari_products__: Product[] | undefined;
+}
+
+function getCategoriesStore(): Category[] {
+  if (!globalThis[globalKeyCategories]) {
+    globalThis[globalKeyCategories] = [...defaultCategories];
+  }
+  return globalThis[globalKeyCategories]!;
+}
+
+function getSlidesStore(): HeroSlide[] {
+  if (!globalThis[globalKeySlides]) {
+    globalThis[globalKeySlides] = [...defaultSlides];
+  }
+  return globalThis[globalKeySlides]!;
+}
+
+function getProductsStore(): Product[] {
+  if (!globalThis[globalKeyProducts]) {
+    globalThis[globalKeyProducts] = [...defaultProducts];
+  }
+  return globalThis[globalKeyProducts]!;
+}
+
+// Live arrays exported for backward compatibility
+export const CATEGORIES = getCategoriesStore();
+export const HERO_SLIDES = getSlidesStore();
+export const PRODUCTS = getProductsStore();
+
+// ── Categories Helpers ──
+export function getCategories(): Category[] {
+  return [...getCategoriesStore()];
+}
+
+export function updateCategory(id: string, patch: Partial<Category>): Category | null {
+  const store = getCategoriesStore();
+  const idx = store.findIndex((c) => c.id === id);
+  if (idx === -1) return null;
+  store[idx] = { ...store[idx], ...patch };
+  return { ...store[idx] };
+}
+
+export function addCategory(category: Omit<Category, "id">): Category {
+  const store = getCategoriesStore();
+  const newCat: Category = {
+    ...category,
+    id: `cat-${Date.now()}`,
+  };
+  store.push(newCat);
+  return newCat;
+}
+
+export function deleteCategory(id: string): boolean {
+  const store = getCategoriesStore();
+  const idx = store.findIndex((c) => c.id === id);
+  if (idx === -1) return false;
+  store.splice(idx, 1);
+  return true;
+}
+
+// ── Hero Slides Helpers ──
+export function getHeroSlides(): HeroSlide[] {
+  return [...getSlidesStore()];
+}
+
+export function updateHeroSlide(id: string, patch: Partial<HeroSlide>): HeroSlide | null {
+  const store = getSlidesStore();
+  const idx = store.findIndex((s) => s.id === id);
+  if (idx === -1) return null;
+  store[idx] = { ...store[idx], ...patch };
+  return { ...store[idx] };
+}
+
+export function addHeroSlide(slide: Omit<HeroSlide, "id">): HeroSlide {
+  const store = getSlidesStore();
+  const newSlide: HeroSlide = {
+    ...slide,
+    id: `slide-${Date.now()}`,
+    order: store.length + 1,
+  };
+  store.push(newSlide);
+  return newSlide;
+}
+
+export function deleteHeroSlide(id: string): boolean {
+  const store = getSlidesStore();
+  const idx = store.findIndex((s) => s.id === id);
+  if (idx === -1) return false;
+  store.splice(idx, 1);
+  return true;
+}
+
+// ── Products Helpers ──
+export function getProducts(): Product[] {
+  return [...getProductsStore()];
+}
+
 export function getProductBySlug(slug: string): Product | undefined {
-  return PRODUCTS.find((p) => p.slug === slug);
+  return getProductsStore().find((p) => p.slug === slug);
 }
 
 export function getProductsByCategory(categorySlug?: string, searchQuery?: string): Product[] {
-  return PRODUCTS.filter((p) => {
+  return getProductsStore().filter((p) => {
     const matchesCat = !categorySlug || categorySlug === "all" || p.categorySlug.toLowerCase() === categorySlug.toLowerCase();
     const matchesSearch = !searchQuery || 
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -393,4 +528,33 @@ export function getProductsByCategory(categorySlug?: string, searchQuery?: strin
       p.category.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCat && matchesSearch;
   });
+}
+
+export function updateProduct(id: string, patch: Partial<Product>): Product | null {
+  const store = getProductsStore();
+  const idx = store.findIndex((p) => p.id === id);
+  if (idx === -1) return null;
+  store[idx] = { ...store[idx], ...patch };
+  return { ...store[idx] };
+}
+
+export function addProduct(product: Omit<Product, "id">): Product {
+  const store = getProductsStore();
+  const newProduct: Product = {
+    ...product,
+    id: `lez-${Date.now()}`,
+    available: product.available ?? true,
+    rating: product.rating ?? 5.0,
+    reviewCount: product.reviewCount ?? 1,
+  };
+  store.unshift(newProduct);
+  return newProduct;
+}
+
+export function deleteProduct(id: string): boolean {
+  const store = getProductsStore();
+  const idx = store.findIndex((p) => p.id === id);
+  if (idx === -1) return false;
+  store.splice(idx, 1);
+  return true;
 }

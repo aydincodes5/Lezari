@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, ShieldCheck, Droplets, Sparkles, Truck } from "lucide-react";
+import { ShieldCheck, Droplets, Sparkles, Truck } from "lucide-react";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 
 export default function Footer() {
@@ -14,18 +14,18 @@ export default function Footer() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="flex flex-col items-center">
               <ShieldCheck className="w-6 h-6 text-[#3d2b1f] mb-2" />
-              <h4 className="text-xs uppercase tracking-widest font-semibold text-[#1c1917]">Anti-Tarnish</h4>
-              <p className="text-[11px] text-[#78716c] mt-0.5">18K Thick Gold PVD Plating</p>
+              <h4 className="text-xs uppercase tracking-widest font-semibold text-[#1c1917]">Stainless Steel</h4>
+              <p className="text-[11px] text-[#78716c] mt-0.5">Durable &amp; Long-Lasting</p>
             </div>
             <div className="flex flex-col items-center">
               <Droplets className="w-6 h-6 text-[#3d2b1f] mb-2" />
-              <h4 className="text-xs uppercase tracking-widest font-semibold text-[#1c1917]">Waterproof</h4>
-              <p className="text-[11px] text-[#78716c] mt-0.5">Shower, Sweat & Pool Safe</p>
+              <h4 className="text-xs uppercase tracking-widest font-semibold text-[#1c1917]">Water-Resistant</h4>
+              <p className="text-[11px] text-[#78716c] mt-0.5">Shower &amp; Sweat Friendly</p>
             </div>
             <div className="flex flex-col items-center">
               <Sparkles className="w-6 h-6 text-[#3d2b1f] mb-2" />
               <h4 className="text-xs uppercase tracking-widest font-semibold text-[#1c1917]">Hypoallergenic</h4>
-              <p className="text-[11px] text-[#78716c] mt-0.5">100% Nickel & Lead Free</p>
+              <p className="text-[11px] text-[#78716c] mt-0.5">Nickel &amp; Lead Free</p>
             </div>
             <div className="flex flex-col items-center">
               <Truck className="w-6 h-6 text-[#3d2b1f] mb-2" />
@@ -39,12 +39,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           
-          {/* Brand Info & Larger Logo */}
+          {/* Brand Info & Logo */}
           <div className="md:col-span-5 space-y-5">
             <Link href="/" className="flex items-center gap-4 group">
-              <div className="relative h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0">
+              <div className="relative h-20 w-20 sm:h-24 sm:w-24 flex-shrink-0">
                 <Image 
-                  src="/logo.png" 
+                  src="/logo-emblem.png" 
                   alt="Lezari Jewels" 
                   fill 
                   className="object-contain"
@@ -61,8 +61,8 @@ export default function Footer() {
             </Link>
 
             <p className="text-xs text-[#78716c] leading-relaxed max-w-sm">
-              Everyday waterproof and anti-tarnish luxury jewellery crafted for the modern muse. 
-              Designed to look like real fine gold without the price tag.
+              Elegant stainless steel jewellery crafted for the modern Indian woman.
+              Stylish, durable, and accessibly priced.
             </p>
 
             {/* Instagram Follow Button */}
@@ -132,7 +132,7 @@ export default function Footer() {
         <div className="border-t border-[#e7e5e4] mt-14 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-[#78716c] gap-4">
           <p>&copy; {new Date().getFullYear()} Lezari Jewels. All rights reserved.</p>
           <div className="flex items-center space-x-6 text-[11px]">
-            <span>18K Gold Plated Jewellery</span>
+            <span>Stainless Steel Fashion Jewellery</span>
             <span>•</span>
             <a href="https://instagram.com/lezarijewels" target="_blank" rel="noopener noreferrer" className="hover:text-[#e1306c] flex items-center gap-1">
               <InstagramIcon className="w-3.5 h-3.5" /> @lezarijewels
