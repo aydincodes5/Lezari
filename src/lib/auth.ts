@@ -1,5 +1,6 @@
 import { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { redirect } from "next/navigation";
 
 export const ADMIN_EMAILS = [
   "aydincodes5@gmail.com",
@@ -59,7 +60,7 @@ export async function getCurrentUser() {
 export async function requireAdmin() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") {
-    throw new Error("Unauthorized");
+    redirect("/login?callbackUrl=/admin");
   }
   return user;
 }

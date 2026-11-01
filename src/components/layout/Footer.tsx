@@ -97,6 +97,7 @@ export default function Footer() {
             <h4 className="font-serif text-sm uppercase tracking-widest text-[#1c1917] mb-5">Support</h4>
             <ul className="space-y-3 text-xs text-[#78716c]">
               <li><Link href="/contact" className="hover:text-[#3d2b1f] transition-colors">Contact Us</Link></li>
+              <li><Link href="/orders" className="hover:text-[#3d2b1f] transition-colors font-medium">Track Order</Link></li>
               <li><Link href="/account" className="hover:text-[#3d2b1f] transition-colors">My Account</Link></li>
               <li><Link href="/cart" className="hover:text-[#3d2b1f] transition-colors">View Cart</Link></li>
               <li><span className="text-[#a8a29e]">Free Shipping above ₹999</span></li>

@@ -104,9 +104,14 @@ export default function CheckoutPage() {
           <p className="text-sm text-[#78716c] mt-1">Phone: {formData.phone}</p>
         </div>
 
-        <Link href="/shop" className="btn-primary inline-flex items-center text-xs tracking-widest py-3 px-8">
-          Continue Shopping <ArrowRight className="w-4 h-4 ml-2" />
-        </Link>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link href={`/orders/${orderComplete}`} className="btn-primary inline-flex items-center text-xs tracking-widest py-3 px-8">
+            View Order Receipt & Track
+          </Link>
+          <Link href="/shop" className="inline-flex items-center text-xs uppercase tracking-wider font-medium text-[#78716c] hover:text-[#1c1917] py-3 px-6">
+            Continue Shopping <ArrowRight className="w-4 h-4 ml-1.5" />
+          </Link>
+        </div>
       </div>
     );
   }
@@ -268,7 +273,7 @@ export default function CheckoutPage() {
               </button>
 
               <div className="flex items-center justify-center gap-4 text-xs text-[#78716c] pt-2">
-                <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-[#3d2b1f]" /> 100% Anti-Tarnish</span>
+                <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-[#3d2b1f]" /> Stainless Steel Jewellery</span>
                 <span>•</span>
                 <span>7-Day Replacement</span>
               </div>
@@ -318,9 +323,9 @@ export default function CheckoutPage() {
             {/* Promise Box */}
             <div className="bg-[#fdf8f6] border border-[#eaddd7] p-5 text-xs space-y-2 text-[#78716c]">
               <p className="font-medium text-[#3d2b1f] uppercase tracking-wider text-[11px]">The Lezari Guarantee</p>
-              <p>• Premium 18K gold PVD plating</p>
-              <p>• Zero tarnishing or discoloration</p>
-              <p>• Discreet luxury jewellery box packaging</p>
+              <p>• Durable stainless steel fashion jewellery</p>
+              <p>• Water-resistant for everyday wear</p>
+              <p>• Signature packaging with fast pan-India shipping</p>
             </div>
           </div>
 

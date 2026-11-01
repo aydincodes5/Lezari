@@ -199,6 +199,13 @@ export default function Header() {
               >
                 Account
               </Link>
+              <Link
+                href="/orders"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-xs font-medium tracking-[0.2em] uppercase py-3 border-b border-[#f5f5f4] text-[#1c1917] hover:text-[#a37c6b]"
+              >
+                Track Order
+              </Link>
               {isAdmin && (
                 <Link
                   href="/admin"

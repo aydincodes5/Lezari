@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { getProducts } from "@/lib/catalog";
+import { getAllOrders } from "@/lib/orders";
 import Link from "next/link";
 import { Package, ShoppingCart, Users, DollarSign, Star, Image as ImageIcon } from "lucide-react";
 
@@ -29,6 +30,19 @@ export default async function AdminDashboard() {
 
   if (productCount === 0) {
     productCount = getProducts().length;
+  }
+
+  const allInMemoryOrders = getAllOrders();
+  if (orderCount === 0 && allInMemoryOrders.length > 0) {
+    orderCount = allInMemoryOrders.length;
+    totalRevenue = allInMemoryOrders.reduce((sum, o) => sum + o.total, 0);
+    recentOrders = allInMemoryOrders.slice(0, 5).map((o) => ({
+      id: o.id,
+      user: { name: o.customerName, email: o.customerEmail },
+      created_at: o.createdAt,
+      status: o.status,
+      total: o.total,
+    }));
   }
 
   return (
